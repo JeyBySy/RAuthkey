@@ -16,7 +16,7 @@ const connectDB = async () => {
         await sequelize.authenticate()
         console.log("Database connected")
     } catch (error) {
-        console.log("Database connection problem") 
+        console.log("Database connection problem")
         process.exit(1)
     }
 }
