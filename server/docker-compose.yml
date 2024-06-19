@@ -1,0 +1,49 @@
+services:
+  oauth_db:
+    image: postgres:13
+    secrets:
+      - pg-password
+    environment:
+      - POSTGRES_DB=oauth
+      - POSTGRES_PASSWORD_FILE=/run/secrets/pg-password
+      - POSTGRES_USER=oauth
+      - PGDATA=/var/lib/postgresql/data/pgdata
+#    restart: always
+    volumes:
+      - auth_db:/var/lib/postgresql/data/pgdata
+    networks:
+      oauthNet:
+         ipv4_address: 172.30.0.2
+
+  pgadmin:
+    image: dpage/pgadmin4
+#    restart: always
+    depends_on:
+      - oauth_db
+    secrets:
+      - pgadmin-password
+    ports:
+        - 8000:80
+    volumes:
+        - oauth-pgadmin:/var/lib/pgadmin
+    environment:
+        - PGADMIN_DEFAULT_EMAIL=njcocosa@gmail.com
+        - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/pgadmin-password
+    networks:
+    - oauthNet
+
+secrets:
+  pgadmin-password:
+    file: db/pg_pass.txt
+  pg-password:
+    file: db/pg_pass.txt
+
+volumes:
+  auth_db:  
+  oauth-pgadmin:  
+
+networks:
+  oauthNet:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16

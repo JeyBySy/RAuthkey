@@ -1,0 +1,25 @@
+{
+  "name": "oauth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "migrate:up": "npx sequelize-cli db:migrate -- name",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo --name"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.30.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3",
+    "sequelize-cli": "^6.6.0"
+  }
+}
