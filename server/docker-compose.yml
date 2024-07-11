@@ -23,7 +23,7 @@ services:
     secrets:
       - pgadmin-password
     ports:
-      - 8000:80
+      - 4000:80
     volumes:
       - oauth-pgadmin:/var/lib/pgadmin
     environment:

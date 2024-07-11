@@ -19,8 +19,16 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
+      is_superuser: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       user_full_name: {
         type: Sequelize.STRING
+      },
+      project_associate: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

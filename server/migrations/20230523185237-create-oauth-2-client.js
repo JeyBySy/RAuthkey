@@ -14,16 +14,32 @@ module.exports = {
       redirect_uri: {
         type: Sequelize.STRING
       },
+      project_code: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        // references: {
+        //   model: 'project_masters',
+        //   key: 'project_code'
+        // }
+      },
+      response_type: {
+        type: Sequelize.STRING
+      },
+      scope: {
+        type: Sequelize.STRING
+      },
       grant_types: {
         type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       }
     });
   },

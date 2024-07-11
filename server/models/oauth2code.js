@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     redirect_uri: DataTypes.STRING,
     response_type: DataTypes.STRING,
     scope: DataTypes.STRING,
-    user_code: DataTypes.STRING
+    user_code: DataTypes.STRING,
+    used: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'oauth2_codes',
