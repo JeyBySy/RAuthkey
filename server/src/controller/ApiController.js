@@ -1,21 +1,43 @@
 const db = require('../../models');
+const bcrypt = require('bcrypt');
 const { project_master, user_master_tbl, oauth2_client } = db
 const { generateUUID4, generateRandomString } = require('../../utils/genRandomChar');
 const { formatAssociate } = require('../../utils/formatAssociate')
 const { BasicAuth } = require('../validators/BasicAuth_validator')
-
+const { signToken } = require('../../utils/Jwt')
 
 exports.index = async (req, res) => {
-    res.send("Admin");
+    res.send(req.session.csrfToken);
+
 };
+
+exports.getAllProjects = async (req, res) => {
+
+    res.send(req.session.csrfmiddlewaretoken);
+
+};
+
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await user_master_tbl.findOne({ where: { user_email: email } });
+        if (!user) return res.status(401).json({ success: false, message: 'Invalid email or password' }); // Error if no user found
+
+        const isMatch = await bcrypt.compare(password, user.user_password);
+        if (!isMatch) return res.status(401).json({ success: false, message: 'Invalid email or password' });
+
+
+        const token = signToken({ id: user.user_id });
+        res.json({ success: true, token });
+
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 
 exports.create_project = async (req, res, next) => {
     const { project_name, redirect_uris, grant_types, response_types, scope } = req.body;
-    const [is_success, error] = await BasicAuth(req, res)
-    console.log(is_success);
-
-    if (!is_success) return res.status(error.status).send(error)
-
     try {
         const projectAssociate = formatAssociate(project_name)
 
@@ -34,6 +56,8 @@ exports.create_project = async (req, res, next) => {
             scope: JSON.stringify(scope)
         })
 
+        req.session.csrfmiddlewaretoken = null
+
 
         res.status(201).json({
             status: 201,
@@ -42,7 +66,6 @@ exports.create_project = async (req, res, next) => {
             project_associate: createProject.project_associate,
             client_id: createClient.client_id
         });
-
 
     } catch (error) {
         console.error("Error create_project:", error);

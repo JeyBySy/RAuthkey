@@ -14,13 +14,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   oauth2_codes.init({
-    code: DataTypes.STRING,
-    client_id: DataTypes.STRING,
-    redirect_uri: DataTypes.STRING,
-    response_type: DataTypes.STRING,
-    scope: DataTypes.STRING,
-    user_code: DataTypes.STRING,
-    used: DataTypes.BOOLEAN
+    code: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+      allowNull: false
+    },
+    client_id: {
+      type: DataTypes.STRING
+    },
+    redirect_uri: {
+      type: DataTypes.STRING
+    },
+    response_type: {
+      type: DataTypes.STRING
+    },
+    scope: {
+      type: DataTypes.STRING
+    },
+    used: {
+      type: DataTypes.BOOLEAN
+    }
   }, {
     sequelize,
     modelName: 'oauth2_codes',

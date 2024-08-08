@@ -11,10 +11,10 @@ module.exports = {
       client_id: {
         type: Sequelize.STRING
       },
-      user_id: {
+      redirect_uri: {
         type: Sequelize.STRING
       },
-      redirect_uri: {
+      response_type: {
         type: Sequelize.STRING
       },
       expires_at: {

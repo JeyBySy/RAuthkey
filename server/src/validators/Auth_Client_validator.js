@@ -3,7 +3,7 @@ const AuthClientValidator = (client, redirectURI) => {
         return [true]
     }
     else {
-        return [false, { "status": 400, "message": 'Invalid client_id or redirect_uri' }];
+        return [false, { "message": 'Invalid client_id or redirect_uri' }];
     }
 
 

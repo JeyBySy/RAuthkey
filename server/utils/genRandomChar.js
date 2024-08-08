@@ -14,11 +14,12 @@ const generateUUID4 = () => {
 };
 
 // Generate a random client secret
-const generateRandomString = () => {
-    return gen_random_string(40);
+const generateRandomString = (value = 40) => {
+    return gen_random_string(value);
 };
 
 module.exports = {
     generateUUID4,
     generateRandomString
 };
+

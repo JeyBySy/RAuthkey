@@ -8,9 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ oauth2_client, oauth2_codes, oauth2_access_tokens, oauth2_refresh_tokens }) {
-      {
-        foreignKey: 'myFooId'
-      }
+
     }
   }
   user_master_tbl.init({

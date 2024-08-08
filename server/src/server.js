@@ -2,15 +2,21 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 const port = 3000
+const sessionMiddleware = require('./middlewares/SessionMiddleware');
+const csrfMiddleware = require('./middlewares/CsrfMiddleware');
 const { sequelize } = require('../models')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
-app.use('/', require('./router/admin.routes'))
-app.use('/oauth', require('./router/oauth.routes'))
-app.use('/authorize', require('./router/auth.routes'))
+app.use(sessionMiddleware);
+app.use(csrfMiddleware.generateCsrfToken);
+
+app.use('/api', require('./routes/api.routes'))
+app.use('/oauth', require('./routes/oauth.routes'))
+app.use('/authorize', require('./routes/auth.routes'))
+
 
 const connectDB = async () => {
     try {
