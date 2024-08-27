@@ -1,6 +1,7 @@
 const formatAssociate = (associate) => {
     const formattedName = associate.replace(/[aeiou]/gi, '').toUpperCase();
-    return formattedName;
+    projectAssociate = formattedName.replace(/\s+/g, '')
+    return projectAssociate;
 }
 
 module.exports = {

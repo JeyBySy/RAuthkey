@@ -6,9 +6,9 @@ const sessionMiddleware = require('./middlewares/SessionMiddleware');
 const csrfMiddleware = require('./middlewares/CsrfMiddleware');
 const { sequelize } = require('../models')
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors())
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: ['http://localhost:5173', 'http://127.0.0.1:5173'] }))
 
 app.use(sessionMiddleware);
 app.use(csrfMiddleware.generateCsrfToken);
@@ -16,7 +16,6 @@ app.use(csrfMiddleware.generateCsrfToken);
 app.use('/api', require('./routes/api.routes'))
 app.use('/oauth', require('./routes/oauth.routes'))
 app.use('/authorize', require('./routes/auth.routes'))
-
 
 const connectDB = async () => {
     try {

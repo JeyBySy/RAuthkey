@@ -3,19 +3,24 @@ const ApiController = require('../controller/ApiController');
 const { AuthMiddleware } = require('../middlewares/AuthMiddleware');
 const { generateCsrfToken, validateCsrfToken } = require('../middlewares/CsrfMiddleware');
 
-router.use(generateCsrfToken);
-// router.use(AuthMiddleware); //TEMP
+// router.use(generateCsrfToken);
+// router.use(AuthMiddleware);
 
 router.route('/')
     .get(ApiController.index);
 
+
+router.get('/csrf-token', generateCsrfToken, (req, res) => {
+    res.send({ csrfToken: req.session.csrfmiddlewaretoken });
+})
+
 router.route('/login')
-    .post(ApiController.login);
+    .post(validateCsrfToken, ApiController.login);
 
 // // User Management
-// router.route('/users')
-//     .get( ApiController.getAllUsers)
-//     .post(validateCsrfToken, ApiController.createUser);
+router.route('/users')
+    .get(AuthMiddleware, validateCsrfToken, ApiController.getUsers)
+// .post(AuthMiddleware, validateCsrfToken, ApiController.createUser);
 
 // router.route('/users/:id')
 //     .get( ApiController.getUserById)
@@ -24,13 +29,13 @@ router.route('/login')
 
 // // Project Management
 router.route('/projects')
-    .get(validateCsrfToken, ApiController.getAllProjects)
-    .post(validateCsrfToken, ApiController.create_project);
+    .get(AuthMiddleware, validateCsrfToken, ApiController.getProjects)
+    .post(AuthMiddleware, validateCsrfToken, ApiController.create_project);
 
-// router.route('/projects/:id')
-//     .get( ApiController.getProjectById)
-//     .put( validateCsrfToken, ApiController.updateProject)
-//     .delete( validateCsrfToken, ApiController.deleteProject);
+router.route('/projects/:id')
+    .get(AuthMiddleware, validateCsrfToken, ApiController.getProjects)
+    .put(AuthMiddleware, validateCsrfToken, ApiController.updateProject)
+    .delete(AuthMiddleware, validateCsrfToken, ApiController.deleteProject);
 
 
 
