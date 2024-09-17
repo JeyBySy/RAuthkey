@@ -1,13 +1,13 @@
-import "./App.css"
-import Logo from "./assets/side_logo_invert.png"
-import LoginForm from "./components/LoginForm/LoginForm"
+import { Routes, Route } from 'react-router-dom'
+import Login from "./pages/Login/Login"
+import Dashboard from './pages/Dashboard/Dashboard'
 
 function App() {
   return (
-    <>
-      {/* <img src={Logo} width={700} height={150} /> */}
-      <LoginForm />
-    </>
+    <Routes>
+      <Route path="login" element={<Login />}></Route>
+      <Route path="/dashboard/*" element={<Dashboard />}></Route>
+    </Routes>
   )
 }
 

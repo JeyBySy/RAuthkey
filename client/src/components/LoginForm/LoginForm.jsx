@@ -22,7 +22,7 @@ const LoginForm = () => {
 
             if (response.data.success) {
                 localStorage.setItem('token', response.data.token);
-                window.location.href = '/dashboard';
+                window.location.href = '/'; //Change appropriate endpoint
             } else {
                 setError('Login failed. Please check your credentials.');
             }
@@ -33,34 +33,25 @@ const LoginForm = () => {
     };
 
     return (
-        <div className='wrapper'>
-            <div className='login-title'>
+        <div className='flex flex-col lg:w-[350px] md:w-[90%] w-[90%] m-auto '>
+            {/* <div className='text-2xl font-bold mb-2 text-start'>
                 RAuthKey
+            </div> */}
+            <div className='bg-elephant-950 shadow-2xl p-9 rounded-lg '>
+                <div className='text-xl pb-3 font-semibold text-center'>
+                    Login
+                </div>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-3 items-center'>
+                    {error && <p className="w-[350px] text-red-600 text-xs bg-red-300 p-3 text-center">{error}</p>}
+                    <input className='input' name={"email"} id='emailID' type="text" placeholder={"Email"} value={email} onChange={handleEmailChange} />
+                    <input className='input' name={"password"} id='passwordID' type="password" placeholder={"Password"} value={password} onChange={handlePasswordChange} />
+                    <input className='w-[250px]  py-2 cursor-pointer hover:bg-elephant-500 bg-elephant-400' type="submit" value="Login" />
+                    <p className=' text-slate-500 text-sm'>Forget password?  <a className='underline' href="/reset-password">Click here</a></p>
+                    <hr className='divider' />
+                    <a className='py-2 border w-[250px] border-none hover:bg-elephant-500 text-center bg-elephant-600' href="/register">Regsiter</a>
+                </form>
             </div>
-            <form onSubmit={handleSubmit}>
-                <div className='input-box'>
-                    <input name={"email"} id='emailID' type="text" placeholder={"email"} value={email} onChange={handleEmailChange} />
-                </div>
-                <div className='input-box'>
-                    <input name={"password"} id='passwordID' type="text" placeholder={"password"} value={password} onChange={handlePasswordChange} />
-                </div>
-                <div className='remember-forgot'>
-                    <label htmlFor="">
-                        <input type="checkbox" name="remember" id="remember" />
-                        Remeber Me
-                    </label>
-                    <a href="">Forgot Password</a>
-                </div>
-                {error && <p className="error-message">{error}</p>}
-                <div className='input-box'>
-                    <input type="submit" value="Login" />
-                </div>
-                <div className='register'>
-                    <p>Don&apos;t have and account yet? <a href="">Regsiter</a></p>
 
-                </div>
-
-            </form>
         </div>
     )
 }
