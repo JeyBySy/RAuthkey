@@ -4,11 +4,12 @@ const cors = require('cors')
 const port = 3000
 const sessionMiddleware = require('./middlewares/SessionMiddleware');
 const csrfMiddleware = require('./middlewares/CsrfMiddleware');
-const { sequelize } = require('../models')
+const { sequelize } = require('../models');
+const allowedOrigins = require('../config/allowedOrigins');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: ['http://localhost:5173', 'http://127.0.0.1:5173'] }))
+app.use(cors(allowedOrigins))
 
 app.use(sessionMiddleware);
 app.use(csrfMiddleware.generateCsrfToken);

@@ -29,6 +29,3 @@ axiosInstance.interceptors.request.use(async (config) => {
 });
 
 export default axiosInstance;
-
-
-// need changes

@@ -10,7 +10,7 @@ router.route('/')
     .get(ApiController.index);
 
 
-router.get('/csrf-token', generateCsrfToken, (req, res) => {
+router.get('/csrf-token', (req, res) => {
     res.send({ csrfToken: req.session.csrfmiddlewaretoken });
 })
 

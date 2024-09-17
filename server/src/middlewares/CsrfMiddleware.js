@@ -7,9 +7,9 @@ let csrf_token = crypto.randomBytes(64).toString('hex');
 function generateCsrfToken(req, res, next) {
     if (!req.session.csrfmiddlewaretoken) {
         req.session.csrfmiddlewaretoken = csrf_token
-        console.log(`Generated CSRF Token: ${req.session.csrfmiddlewaretoken}`);
+        // console.log(`Generated CSRF Token: ${req.session.csrfmiddlewaretoken}`);
     } else {
-        console.log(`Existing CSRF Token: ${req.session.csrfmiddlewaretoken}`);
+        // console.log(`Existing CSRF Token: ${req.session.csrfmiddlewaretoken}`);
     }
     res.cookie('csrfToken', req.session.csrfmiddlewaretoken, COOKIE_SESSION);
     console.log(req.url);
