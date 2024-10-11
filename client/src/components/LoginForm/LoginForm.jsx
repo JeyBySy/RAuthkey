@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axiosInstance from '../../services/axiosInstance';
-import './LoginForm.css'
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -38,17 +38,18 @@ const LoginForm = () => {
                 RAuthKey
             </div> */}
             <div className='bg-elephant-950 shadow-2xl p-9 rounded-lg '>
-                <div className='text-xl pb-3 font-semibold text-center'>
+                <div className='text-2xl pb-3 font-semibold text-center'>
                     Login
                 </div>
-                <form onSubmit={handleSubmit} className='flex flex-col gap-3 items-center'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-5 items-center'>
                     {error && <p className="w-[350px] text-red-600 text-xs bg-red-300 p-3 text-center">{error}</p>}
                     <input className='input' name={"email"} id='emailID' type="text" placeholder={"Email"} value={email} onChange={handleEmailChange} />
                     <input className='input' name={"password"} id='passwordID' type="password" placeholder={"Password"} value={password} onChange={handlePasswordChange} />
-                    <input className='w-[250px]  py-2 cursor-pointer hover:bg-elephant-500 bg-elephant-400' type="submit" value="Login" />
+                    <input className='w-full  py-2 cursor-pointer hover:bg-elephant-500 bg-elephant-400' type="submit" value="Login" />
                     <p className=' text-slate-500 text-sm'>Forget password?  <a className='underline' href="/reset-password">Click here</a></p>
                     <hr className='divider' />
-                    <a className='py-2 border w-[250px] border-none hover:bg-elephant-500 text-center bg-elephant-600' href="/register">Regsiter</a>
+                    <p className=' text-slate-500 text-sm'>Dont have an account yet?</p>
+                    <a className='py-2 w-full  hover:bg-elephant-500 text-center bg-elephant-600' href="/register">Regsiter</a>
                 </form>
             </div>
 
