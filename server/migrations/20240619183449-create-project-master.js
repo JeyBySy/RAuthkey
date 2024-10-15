@@ -18,6 +18,21 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      project_api_key: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+      project_api_secret: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+      project_owner_user_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'user_master_tbls',
+          key: 'user_id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

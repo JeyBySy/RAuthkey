@@ -12,11 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(allowedOrigins))
 
 app.use(sessionMiddleware);
-app.use(csrfMiddleware.generateCsrfToken);
+// app.use(csrfMiddleware.generateCsrfToken);
 
+app.use('/auth', require('./routes/auth.routes'))
 app.use('/api', require('./routes/api.routes'))
-app.use('/oauth', require('./routes/oauth.routes'))
-app.use('/authorize', require('./routes/auth.routes'))
+app.use('/api/project', require('./routes/project.routes'))
 
 const connectDB = async () => {
     try {

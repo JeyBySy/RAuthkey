@@ -1,5 +1,6 @@
 const { verifyToken } = require('../../utils/Jwt')
 
+
 const AuthMiddleware = (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     if (!token) {

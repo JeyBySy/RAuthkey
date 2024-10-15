@@ -1,10 +1,9 @@
 const crypto = require('crypto');
 const { COOKIE_SESSION } = require('../../utils/constants');
 
-// Middleware to generate CSRF token and add it to the session
-let csrf_token = crypto.randomBytes(64).toString('hex');
 
 function generateCsrfToken(req, res, next) {
+    let csrf_token = crypto.randomBytes(64).toString('hex');
     if (!req.session.csrfmiddlewaretoken) {
         req.session.csrfmiddlewaretoken = csrf_token
         // console.log(`Generated CSRF Token: ${req.session.csrfmiddlewaretoken}`);
@@ -23,13 +22,22 @@ function validateCsrfToken(req, res, next) {
     const csrfTokenFromSession = req.session.csrfmiddlewaretoken; //server copy of token
     const csrfTokenFromBody = req.body.csrfmiddlewaretoken || req.headers.csrfmiddlewaretoken;
     console.log(`csrfTokenFromSession: ${csrfTokenFromSession}`);
-    console.log(`csrfTokenFromBody: ${csrfTokenFromBody}`);
+    // console.log(`csrfTokenFromBody: ${csrfTokenFromBody}`);
 
     if (csrfTokenFromSession && csrfTokenFromSession === csrfTokenFromBody) {
         next();
     } else {
-        res.status(403).json({ error: 'Invalid CSRF token', tokenInvalid: csrfTokenFromBody });
+        res.status(403).json({ error: 'Invalid CSRF token' });
     }
 }
 
-module.exports = { generateCsrfToken, validateCsrfToken };
+
+function regenerateCsrfToken(req, res) {
+    const newCsrfToken = crypto.randomBytes(64).toString('hex');
+    req.session.csrfmiddlewaretoken = newCsrfToken; // Update session token
+    res.cookie('csrfToken', newCsrfToken, COOKIE_SESSION); // Set new cookie
+    console.log(`Regenerated CSRF Token: ${newCsrfToken}`);
+    return newCsrfToken; // Optionally return the new token
+}
+
+module.exports = { generateCsrfToken, validateCsrfToken, regenerateCsrfToken };

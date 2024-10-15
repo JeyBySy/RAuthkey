@@ -27,7 +27,18 @@ module.exports = (sequelize, DataTypes) => {
     project_associate: {
       type: DataTypes.STRING,
       unique: true
-    }
+    },
+    project_api_key: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    project_api_secret: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    project_owner_user_id: {
+      type: DataTypes.UUID,
+    },
   }, {
     sequelize,
     modelName: 'project_master',
