@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import axiosInstance from '../../services/axiosInstance';
+import { useState, useContext } from 'react';
+import axiosInstance from '../../api/axiosInstance';
+import AuthContext from '../../context/AuthContextProvider';
 
 
 const LoginForm = () => {
+    const { setAuth } = useContext(AuthContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
@@ -15,19 +17,27 @@ const LoginForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axiosInstance.post('/login', {
+            const response = await axiosInstance.post('/api/user/login', {
                 email,
                 password,
             });
 
+            console.log(response);
+
+            const accessToken = response?.data?.accessToken
+            const csrfToken = response?.data?.csrfToken
+
+            setAuth({ email, accessToken, csrfToken })
+
             if (response.data.success) {
-                localStorage.setItem('token', response.data.token);
-                window.location.href = '/'; //Change appropriate endpoint
+                window.location.href = '/dashboard';
             } else {
                 setError('Login failed. Please check your credentials.');
             }
         } catch (error) {
-            setError('An error occurred during login. Please try again.');
+            if (!error?.response) {
+                setError('Internal Error: An error occurred during login. Please try again.');
+            }
             console.error('Login error:', error);
         }
     };

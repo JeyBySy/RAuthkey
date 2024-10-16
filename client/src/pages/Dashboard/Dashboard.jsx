@@ -1,5 +1,3 @@
-
-import Navbar from "../../components/Navbar/Navbar"
 import Sidemenu from "../../components/SideMenu/Sidemenu"
 import Main from './Main';
 
@@ -7,9 +5,6 @@ import Main from './Main';
 const Dashboard = () => {
     return (
         <div className="h-screen flex flex-col overflow-hidden">
-            <div className="flex-shrink-0">
-                <Navbar />
-            </div>
             <div className="flex flex-grow overflow-hidden">
                 <div className="flex-shrink-0">
                     <Sidemenu />

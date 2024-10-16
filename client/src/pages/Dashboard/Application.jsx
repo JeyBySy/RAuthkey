@@ -40,8 +40,11 @@ const Application = () => {
                         <h1 className="text-4xl">Applications</h1>
                         <span className='text-gray-500'>Create new application for authentication</span>
                     </div>
-                    <button className="w-[250px] bg-elephant-400  py-2 rounded hover:bg-elephant-500 h-fit" onClick={openModal}>
-                        + Create application
+                    <button className="w-[250px] bg-elephant-400  py-2 rounded hover:bg-elephant-500 h-fit flex items-center justify-center gap-2" onClick={openModal}>
+                        <svg className="w-3 h-3 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                        <p>Create application</p>
                     </button>
                 </div>
                 <div className="flex flex-col px-5 overflow-auto h-[77vh] transition-all ease-in">

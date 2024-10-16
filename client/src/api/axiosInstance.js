@@ -1,11 +1,13 @@
 import axios from 'axios';
 const BASE_URL = "http://localhost:3000"
+
 // Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: BASE_URL + "/api",
+    baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
