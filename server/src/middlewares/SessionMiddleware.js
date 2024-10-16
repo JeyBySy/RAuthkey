@@ -6,7 +6,8 @@ const sessionMiddleware = session({
     saveUninitialized: true,
     cookie: {
         secure: false, // Set to true if using HTTPS
-        maxAge: 1000 * 60 * 60 * 24 // Session expires after 24 hours (in milliseconds)
+        maxAge: 1000 * 60 * 60 * 24, // Session expires after 24 hours (in milliseconds)
+        sameSite: 'Lax',
     }
 });
 

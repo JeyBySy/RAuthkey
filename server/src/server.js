@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors')
 const port = 3000
 const sessionMiddleware = require('./middlewares/SessionMiddleware');
-const csrfMiddleware = require('./middlewares/CsrfMiddleware');
 const { sequelize } = require('../models');
 const allowedOrigins = require('../config/allowedOrigins');
 
@@ -12,9 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(allowedOrigins))
 
 app.use(sessionMiddleware);
-// app.use(csrfMiddleware.generateCsrfToken);
 
-app.use('/auth', require('./routes/auth.routes'))
+app.use('/api/user', require('./routes/user.routes'))
 app.use('/api', require('./routes/api.routes'))
 app.use('/api/project', require('./routes/project.routes'))
 

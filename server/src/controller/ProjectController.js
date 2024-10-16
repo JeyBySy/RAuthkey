@@ -1,10 +1,9 @@
 const db = require('../../models');
-const bcrypt = require('bcrypt');
 const { project_master } = db
 const { generateUUID4, generateRandomString } = require('../../utils/genRandomChar');
 const { formatAssociate } = require('../../utils/formatAssociate')
 const { regenerateCsrfToken } = require('../middlewares/CsrfMiddleware');
-
+const { Sequelize } = require('sequelize');
 
 // Project Management
 exports.getProjects = async (req, res) => {
@@ -28,17 +27,19 @@ exports.create_project = async (req, res, next) => {
     const { project_name } = req.body;
     try {
         const projectAssociate = formatAssociate(project_name)
+        const ApiKey = `${projectAssociate}_${generateUUID4()}`
+        const SecretKey = `${projectAssociate}_${generateUUID4()}`
+
 
         const createProject = await project_master.create({
             project_name: project_name,
             project_owner_user_id: req.user.id,
             project_associate: projectAssociate,
-            project_api_key: `${projectAssociate}_${generateUUID4()}`,
-            project_api_secret: `${projectAssociate}_${generateUUID4()}`
+            project_api_key: ApiKey,
+            project_api_secret: SecretKey
         })
 
-        const newCsrfToken = regenerateCsrfToken(req, res)
-        req.session.csrfmiddlewaretoken = newCsrfToken
+        req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);
 
         res.status(201).json({
             success: true,
@@ -49,8 +50,15 @@ exports.create_project = async (req, res, next) => {
         });
 
     } catch (error) {
-        // console.error("Error create_project:", error);
-        res.status(500).json({ success: false, message: "Internal Server errosssssssssssssr", error });
+        if (error instanceof Sequelize.UniqueConstraintError) {
+            // Handle unique constraint violation
+            return res.status(400).json({
+                success: false,
+                message: "Project name must be unique",
+                csrfToken: req.session.csrfmiddlewaretoken
+            });
+        }
+        res.status(500).json({ success: false, message: "Internal Server error", error });
     }
 };
 
@@ -60,11 +68,21 @@ exports.deleteProject = async (req, res) => {
         const deleteProject = await project_master.destroy({
             where: { project_code: id },
         })
+        console.log("deleteProject", deleteProject);
 
-        if (deleteProject) {
-            return res.send({ success: true, message: 'Project Deleted' })
+        if (deleteProject > 0) {
+            req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);
+            return res.json({
+                success: true,
+                message: 'Project Deleted',
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
         } else {
-            return res.send({ success: false, message: `Project with id '${id}' does not exist` })
+            return res.json({
+                success: false,
+                message: `Project with id '${id}' does not exist`,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
         }
 
 
@@ -92,13 +110,102 @@ exports.updateProject = async (req, res) => {
         )
 
         if (updatedCount > 0) {
-            return res.send({ success: true, message: 'Project Updated', project: updatedProject })
+            req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);
+            return res.json({
+                success: true,
+                message: 'Project Updated',
+                project: updatedProject,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
         } else {
-            return res.send({ success: false, message: `Project with id '${id}' does not exist` })
+            return res.send({
+                success: false,
+                message: `Project with id '${id}' does not exist`,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
         }
 
     } catch (error) {
         console.error("Error updateProject:", error);
+        res.status(500).json({ success: false, error: "Internal Server error" });
+    }
+}
+
+
+exports.regenerateApiKey = async (req, res) => {
+    const { id } = req.params
+    const { project_name } = req.body
+    try {
+
+        const projectAssociate = formatAssociate(project_name)
+        const ApiKey = `${projectAssociate}_${generateUUID4()}`
+        const [updatedCount, [updatedProject]] = await project_master.update(
+            {
+                project_api_key: ApiKey,
+            },
+            {
+                where: { project_code: id },
+                returning: true
+            }
+        )
+
+        if (updatedCount > 0) {
+            req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);
+            return res.json({
+                success: true,
+                message: 'Project ApiKey Updated',
+                project: updatedProject,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
+        } else {
+            return res.send({
+                success: false,
+                message: `Project with id '${id}' does not exist`,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
+        }
+
+    } catch (error) {
+        console.error("Error regenerateApiKey:", error);
+        res.status(500).json({ success: false, error: "Internal Server error" });
+    }
+}
+
+exports.regenerateSecretKey = async (req, res) => {
+    const { id } = req.params
+    const { project_name } = req.body
+    try {
+
+        const projectAssociate = formatAssociate(project_name)
+        const SecretKey = `${projectAssociate}_${generateUUID4()}`
+        const [updatedCount, [updatedProject]] = await project_master.update(
+            {
+                project_api_secret: SecretKey,
+            },
+            {
+                where: { project_code: id },
+                returning: true
+            }
+        )
+
+        if (updatedCount > 0) {
+            req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);
+            return res.json({
+                success: true,
+                message: 'Project SecretKey Updated',
+                project: updatedProject,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
+        } else {
+            return res.send({
+                success: false,
+                message: `Project with id '${id}' does not exist`,
+                csrfToken: req.session.csrfmiddlewaretoken
+            })
+        }
+
+    } catch (error) {
+        console.error("Error regenerateSecretKey:", error);
         res.status(500).json({ success: false, error: "Internal Server error" });
     }
 }

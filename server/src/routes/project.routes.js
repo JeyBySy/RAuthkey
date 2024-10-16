@@ -14,7 +14,11 @@ router.route('/:id')
     .put(AuthMiddleware, validateCsrfToken, ProjectController.updateProject)
     .delete(AuthMiddleware, validateCsrfToken, ProjectController.deleteProject);
 
+router.route('/key/regenerateApiKey/:id')
+    .post(AuthMiddleware, validateCsrfToken, ProjectController.regenerateApiKey)
 
+router.route('/key/regenerateSecretKey/:id')
+    .post(AuthMiddleware, validateCsrfToken, ProjectController.regenerateSecretKey)
 
 
 module.exports = router;

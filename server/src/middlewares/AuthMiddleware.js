@@ -9,11 +9,10 @@ const AuthMiddleware = (req, res, next) => {
 
     try {
         const decoded = verifyToken(token);
-        // console.log(decoded);
         req.user = decoded;
         next();
     } catch (err) {
-        res.status(401).json({ message: 'Token is not valid' });
+        res.status(403).json({ message: 'Token is not valid' });
     }
 };
 

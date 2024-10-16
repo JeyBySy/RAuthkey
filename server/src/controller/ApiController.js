@@ -12,6 +12,5 @@ exports.index = async (req, res) => {
 // User Management
 exports.getUsers = async (req, res) => {
     res.send("hello");
-
 };
 

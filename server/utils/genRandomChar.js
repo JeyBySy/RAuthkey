@@ -2,7 +2,7 @@
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 
-const gen_random_string = (length) => {
+function gen_random_string(length) {
     return crypto.randomBytes(Math.ceil(length / 2))
         .toString('hex')
         .slice(0, length);
@@ -10,7 +10,7 @@ const gen_random_string = (length) => {
 
 // Generate a random client ID
 const generateUUID4 = () => {
-    return uuidv4();
+    return uuidv4().split('-').join('');
 };
 
 // Generate a random client secret

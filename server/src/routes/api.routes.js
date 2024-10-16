@@ -15,8 +15,8 @@ router.get('/csrf-token', (req, res) => {
 })
 
 // // User Management
-router.route('/users')
-    .get(AuthMiddleware, validateCsrfToken, ApiController.getUsers)
+// router.route('/users')
+//     .get(AuthMiddleware, validateCsrfToken, ApiController.getUsers)
 // .post(AuthMiddleware, validateCsrfToken, ApiController.createUser);
 
 // router.route('/users/:id')
