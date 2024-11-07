@@ -1,14 +1,21 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from '../components/Navbar/Navbar'
+import Sidemenu from '../components/SideMenu/Sidemenu'
+
 
 const MainLayout = () => {
     return (
-        <>
-            <Navbar />
-            <div className='min-h-screen'>
-                <Outlet />
+        <div className="flex">
+            <div className='sideNav'>
+                <Sidemenu />
             </div>
-        </>
+            <div className='flex-grow p-5 mt-14'>
+                <div className='lg:w-[90%] mx-auto'>
+                    <Outlet />
+                </div>
+            </div>
+            {/* <div className="lg:w-[86%] w-full p-10 overflow-y-auto border ml-auto">
+            </div> */}
+        </div>
     )
 }
 

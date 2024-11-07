@@ -13,6 +13,9 @@
   /* background-color: #0e0e11; */
   @apply bg-elephant-900;
 }
+.sideNav {
+  @apply sm:w-[10px] lg:w-[250px];
+}
 .divider {
   width: 100%;
   color: white;
