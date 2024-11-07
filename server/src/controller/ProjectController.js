@@ -35,8 +35,8 @@ exports.create_project = async (req, res, next) => {
             project_name: project_name,
             project_owner_user_id: req.user.id,
             project_associate: projectAssociate,
-            project_api_key: ApiKey,
-            project_api_secret: SecretKey
+            project_auth_key: ApiKey,
+            project_auth_secret: SecretKey
         })
 
         req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);
@@ -141,7 +141,7 @@ exports.regenerateApiKey = async (req, res) => {
         const ApiKey = `${projectAssociate}_${generateUUID4()}`
         const [updatedCount, [updatedProject]] = await project_master.update(
             {
-                project_api_key: ApiKey,
+                project_auth_key: ApiKey,
             },
             {
                 where: { project_code: id },
@@ -180,7 +180,7 @@ exports.regenerateSecretKey = async (req, res) => {
         const SecretKey = `${projectAssociate}_${generateUUID4()}`
         const [updatedCount, [updatedProject]] = await project_master.update(
             {
-                project_api_secret: SecretKey,
+                project_auth_secret: SecretKey,
             },
             {
                 where: { project_code: id },

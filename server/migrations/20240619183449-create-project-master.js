@@ -18,11 +18,11 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
-      project_api_key: {
+      project_auth_key: {
         type: Sequelize.STRING,
         unique: true
       },
-      project_api_secret: {
+      project_auth_secret: {
         type: Sequelize.STRING,
         unique: true
       },

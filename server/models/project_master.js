@@ -28,11 +28,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    project_api_key: {
+    project_auth_key: {
       type: DataTypes.STRING,
       unique: true
     },
-    project_api_secret: {
+    project_auth_secret: {
       type: DataTypes.STRING,
       unique: true
     },
