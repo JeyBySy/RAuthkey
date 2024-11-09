@@ -46,7 +46,7 @@ exports.create_project = async (req, res, next) => {
             message: "Project added successfully",
             project_name: createProject.project_name,
             project_associate: createProject.project_associate,
-            csrfToken: req.session.csrfmiddlewaretoken
+            // csrfToken: req.session.csrfmiddlewaretoken
         });
 
     } catch (error) {

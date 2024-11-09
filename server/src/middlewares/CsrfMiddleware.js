@@ -11,7 +11,7 @@ function generateCsrfToken(req, res, next) {
         // console.log(`Existing CSRF Token: ${req.session.csrfmiddlewaretoken}`);
     }
     res.cookie('csrfToken', req.session.csrfmiddlewaretoken, COOKIE_SESSION);
-    console.log(req.url);
+    // console.log(req.url);
 
     next();
 }
@@ -20,8 +20,9 @@ function generateCsrfToken(req, res, next) {
 // Middleware to validate CSRF token from the request
 function validateCsrfToken(req, res, next) {
     const csrfTokenFromSession = req.session.csrfmiddlewaretoken; //server copy of token
-    const csrfTokenFromBody = req.body.csrfmiddlewaretoken || req.headers.csrfmiddlewaretoken;
-    console.log(`csrfTokenFromSession: ${csrfTokenFromSession}`);
+    const csrfTokenFromBody = req.headers.csrfmiddlewaretoken;
+
+    // console.log(`csrfTokenFromSession: ${csrfTokenFromSession}`);
     // console.log(`csrfTokenFromBody: ${csrfTokenFromBody}`);
 
     if (csrfTokenFromSession && csrfTokenFromSession === csrfTokenFromBody) {
@@ -35,7 +36,7 @@ function validateCsrfToken(req, res, next) {
 function regenerateCsrfToken(req, res) {
     const newCsrfToken = crypto.randomBytes(64).toString('hex');
     req.session.csrfmiddlewaretoken = newCsrfToken; // Update session token
-    res.cookie('csrfToken', newCsrfToken, COOKIE_SESSION); // Set new cookie
+    // res.cookie('csrfToken', newCsrfToken, COOKIE_SESSION); // Set new cookie
     console.log(`Regenerated CSRF Token: ${newCsrfToken}`);
     return newCsrfToken; // Optionally return the new token
 }
