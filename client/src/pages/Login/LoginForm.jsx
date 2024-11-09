@@ -1,10 +1,12 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import axiosInstance from '../../api/axiosInstance';
-import AuthContext from '../../context/AuthContextProvider';
+import { useAuth } from '../../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
-    const { setAuth } = useContext(AuthContext)
+    const { login: setAuth } = useAuth()
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
@@ -22,15 +24,13 @@ const LoginForm = () => {
                 password,
             });
 
-            console.log(response);
-
             const accessToken = response?.data?.accessToken
             const csrfToken = response?.data?.csrfToken
 
             setAuth({ email, accessToken, csrfToken })
 
             if (response.data.success) {
-                window.location.href = '/dashboard';
+                navigate('/dashboard');
             } else {
                 setError('Login failed. Please check your credentials.');
             }
@@ -43,7 +43,7 @@ const LoginForm = () => {
     };
 
     return (
-        <div className='flex flex-col lg:w-[350px] md:w-[90%] w-[90%] m-auto '>
+        <div className='loginPage flex flex-col lg:w-[350px] md:w-[90%] w-[90%] m-auto '>
             {/* <div className='text-2xl font-bold mb-2 text-start'>
                 RAuthKey
             </div> */}

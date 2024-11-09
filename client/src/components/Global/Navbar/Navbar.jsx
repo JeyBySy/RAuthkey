@@ -1,4 +1,4 @@
-import logo from '../../assets/logo-clear.png'
+import logo from '../../../assets/logo-clear.png'
 const Navbar = () => {
     return (
         <div className="w-full h-[60px] bg-elephant-950 px-3">

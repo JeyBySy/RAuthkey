@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import Sidemenu from '../components/SideMenu/Sidemenu'
+import Sidemenu from '../components/Global/SideMenu/Sidemenu'
 
 
 const MainLayout = () => {
@@ -8,7 +8,7 @@ const MainLayout = () => {
             <div className='sideNav'>
                 <Sidemenu />
             </div>
-            <div className='flex-grow p-5 mt-14'>
+            <div className='flex-grow p-5 mt-14 z-10'>
                 <div className='lg:w-[90%] mx-auto'>
                     <Outlet />
                 </div>

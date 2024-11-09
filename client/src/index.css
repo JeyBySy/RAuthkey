@@ -1,12 +1,14 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Questrial&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   /* font-family: "Poppins", sans-serif; */
-  font-family: "Cabin", sans-serif;
+  /* font-family: "Cabin", sans-serif; */
+  font-family: "Questrial", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.87);
@@ -21,6 +23,9 @@
   color: white;
   @apply border shadow-lg;
 }
-.input {
+.loginPage .input {
   @apply bg-elephant-950 p-2 text-sm border-b-2 border-elephant-800 focus:outline-none mb-2 w-full;
+}
+.input {
+  @apply p-2 text-sm bg-inherit border-b-2 border-elephant-900 outline-elephant-100 mb-2 w-full;
 }
