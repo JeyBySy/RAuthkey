@@ -4,11 +4,11 @@ import Sidemenu from '../components/Global/SideMenu/Sidemenu'
 
 const MainLayout = () => {
     return (
-        <div className="flex">
-            <div className='sideNav'>
+        <div className="grid lg:grid-cols-[250px_1fr] h-screen">
+            <div>
                 <Sidemenu />
             </div>
-            <div className='flex-grow p-5 mt-14 z-10'>
+            <div className="p-5 mt-14 z-20 w-full">
                 <div className='lg:w-[90%] mx-auto'>
                     <Outlet />
                 </div>
