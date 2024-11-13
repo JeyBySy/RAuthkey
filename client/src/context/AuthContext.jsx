@@ -42,6 +42,15 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.setItem('csrfToken', csrfToken);
     };
 
+    const updateCsrfToken = (newCsrfToken) => {
+        setAuthState((prevState) => ({
+            ...prevState,
+            csrfToken: newCsrfToken
+        }));
+        sessionStorage.setItem('csrfToken', newCsrfToken);
+    };
+
+
     const logout = () => {
         setAuthState({
             accessToken: null,
@@ -53,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ authState, login, logout }}>
+        <AuthContext.Provider value={{ authState, login, logout, updateCsrfToken }}>
             {children}
         </AuthContext.Provider>
     );
