@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "docker compose up -d && nodemon src/server.js",
     "migrate:up": "npx sequelize-cli db:migrate --name",
     "migrate:undo": "npx sequelize-cli db:migrate:undo --name",
     "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
