@@ -10,13 +10,19 @@ exports.getProjects = async (req, res) => {
     const { id } = req.params
     try {
         var projects
+
         if (id || id != null) {
             projects = await project_master.findByPk(id);
+
         } else {
-            projects = await project_master.findAll();
+            projects = await project_master.findAll({ order: [['createdAt', 'DESC'],] });
         }
 
-        res.send({ success: true, projects: projects || [] })
+        res.send({
+            success: projects == null ? false : true,
+            projects: projects || [],
+        })
+
     } catch (error) {
         res.status(500).json({ success: false, message: 'Internal Server error' });
     }
@@ -45,8 +51,9 @@ exports.create_project = async (req, res, next) => {
             success: true,
             message: "Project added successfully",
             project_name: createProject.project_name,
+            project_code: createProject.project_code,
             project_associate: createProject.project_associate,
-            // csrfToken: req.session.csrfmiddlewaretoken
+            csrfToken: req.session.csrfmiddlewaretoken
         });
 
     } catch (error) {
