@@ -15,9 +15,6 @@
   /* background-color: #0e0e11; */
   @apply bg-elephant-900;
 }
-.sideNav {
-  @apply sm:w-[10px] lg:w-[250px];
-}
 .divider {
   width: 100%;
   color: white;
@@ -27,5 +24,17 @@
   @apply bg-elephant-950 p-2 text-sm border-b-2 border-elephant-800 focus:outline-none mb-2 w-full;
 }
 .input {
-  @apply p-2 text-sm bg-inherit border-b-2 border-elephant-900 outline-elephant-100 mb-2 w-full;
+  @apply p-2 text-base focus:outline-none mb-2 w-full;
+}
+
+/* Samples */
+.title_page {
+  @apply text-4xl font-extrabold;
+}
+
+th {
+  @apply bg-elephant-700 border-x border-y-0  py-3 px-2;
+}
+td {
+  @apply bg-elephant-950 border-x-0  border-b  py-3 px-2;
 }
