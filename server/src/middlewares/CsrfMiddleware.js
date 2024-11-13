@@ -10,7 +10,7 @@ function generateCsrfToken(req, res, next) {
     } else {
         // console.log(`Existing CSRF Token: ${req.session.csrfmiddlewaretoken}`);
     }
-    res.cookie('csrfToken', req.session.csrfmiddlewaretoken, COOKIE_SESSION);
+    // res.cookie('csrfToken', req.session.csrfmiddlewaretoken, COOKIE_SESSION);
     // console.log(req.url);
 
     next();
