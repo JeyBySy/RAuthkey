@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../../../assets/logo-clear.png'
-import { LayoutDashboard, ChartNoAxesColumnIncreasing, Settings, CircleUser, ChartBar, LogOut } from 'lucide-react';
+import { LayoutDashboard, ChartNoAxesColumnIncreasing, Settings, CircleUser, ChartBar, LogOut, Menu } from 'lucide-react';
 import { motion } from 'framer-motion'
-import { useAuth } from '../../../context/authContext';
+import { useAuth } from '../../../context/AuthContext';
 
 const navItems = [
     { to: "/dashboard", label: "Dashboard", Icon: ChartNoAxesColumnIncreasing },
@@ -28,12 +28,17 @@ const AnimatedBackground = () => (
 const Sidemenu = () => {
     const { logout } = useAuth();
     return (
-        <div className="sideNav h-screen flex bg-elephant-800 fixed flex-col">
+        <div className="sm:w-auto lg:w-[250px] h-screen flex bg-elephant-800 fixed flex-col">
             <div className='w-full h-[60px] bg-elephant-950 flex items-center'>
-                <img src={logo} alt="logo" className='w-[50px] h-[50px] object-contain' />
-                <p className='hidden lg:flex'>
-                    RauthKey
-                </p>
+                <div className='flex flex-row items-center w-full'>
+                    <img src={logo} alt="logo" className='w-[50px] h-[50px] object-contain' />
+                    <p className='hidden lg:flex'>
+                        RauthKey
+                    </p>
+                </div>
+                <button className='mx-4 w-auto'>
+                    <Menu />
+                </button>
             </div>
             <div className="hidden sm:w-[250px] flex-col gap-1 capitalize lg:flex font-medium text-white">
                 {navItems.map(({ to, label, Icon }) => (
