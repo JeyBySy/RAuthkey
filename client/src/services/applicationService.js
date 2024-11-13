@@ -2,9 +2,15 @@ import axiosInstance from '../api/axiosInstance';
 
 const ApplicationService = {
     // Fetch all applications
-    getAllApplications: async () => {
+    getAllApplications: async (id) => {
         try {
-            const response = await axiosInstance.get('/api/project');
+            var response
+
+            if (id) {
+                response = await axiosInstance.get(`/api/project/${id}`,);
+            } else {
+                response = await axiosInstance.get(`/api/project/`,);
+            }
             return response.data;
         } catch (error) {
             console.error('Error fetching applications:', error);
