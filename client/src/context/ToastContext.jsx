@@ -1,5 +1,6 @@
 // ToastContext.js
 import { createContext, useContext, useState } from 'react';
+import { Info, CircleCheck, Ban, TriangleAlert } from 'lucide-react'
 
 import { motion } from "framer-motion";
 
@@ -44,19 +45,27 @@ export const useToast = () => useContext(ToastContext);
 // eslint-disable-next-line react/prop-types, no-unused-vars
 const Toast = ({ id, message, type, onClose }) => {
     const toastStyles = {
-        info: 'bg-blue-500 text-white',
+        info: 'bg-white text-gray-600',
         success: 'bg-green-500 text-white',
         error: 'bg-red-500 text-white',
         warning: 'bg-yellow-500 text-white',
     };
+    const toasticon = {
+        info: <Info />,
+        success: <CircleCheck />,
+        error: <Ban />,
+        warning: <TriangleAlert />
+
+
+    }
 
     return (
         <motion.div
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`${toastStyles[type]} px-4 py-2 mb-2 shadow-lg rounded-sm text-base`} onClick={onClose}>
-            {message}
+            className={`${toastStyles[type]} px-7 py-2 mb-2 shadow-lg rounded-sm text-base flex flex-row gap-2 items-center`} onClick={onClose}>
+            {toasticon[type]}{message}
         </motion.div>
     );
 };
