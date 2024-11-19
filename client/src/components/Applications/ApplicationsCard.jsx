@@ -50,7 +50,7 @@ const ApplicationsCard = ({ projectCode, projectLogo, projectName, projectAuthKe
                     </div>
                 </div>
                 <div className="flex items-center mt-2 justify-start w-fit">
-                    <User /><span className="font-black"> 100</span>
+                    <User width={20} height={20} /><span className="font-black"> 100</span>
                 </div>
 
 
