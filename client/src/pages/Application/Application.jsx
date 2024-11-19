@@ -98,7 +98,7 @@ const Application = () => {
                 <div className="flex mb-5">
                     <div className='w-full leading-8'>
                         <h1 className="title_page">Applications</h1>
-                        <span className='text-gray-500'>Create new application for authentication</span>
+                        <span className='text-gray-400'>Create new application for authentication</span>
                     </div>
                     <button className="w-[250px] bg-elephant-400  py-2 rounded hover:bg-elephant-500 h-fit flex items-center justify-center gap-2" onClick={openModal}>
                         <svg className="w-3 h-3 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -116,7 +116,7 @@ const Application = () => {
                 ) : (
                     <div className="flex flex-row gap-2 flex-wrap justify-start overflow-auto ">
                         {applications?.map((project) => (
-                            <div key={project.project_code} className="justify-start rounded-lg border border-elephant-800 hover:border-elephant-300 w-full lg:max-w-[360px] bg-gradient-to-tl from-elephant-700 hover:bg-gradient-to-br hover:from-elephant-600 ">
+                            <div key={project.project_code} className="justify-start rounded border border-elephant-800 hover:shadow-elephant-100 w-full lg:max-w-[360px] bg-gradient-to-tl from-elephant-700 hover:bg-gradient-to-br hover:from-elephant-600 ">
                                 <ApplicationsCard
                                     projectCode={project.project_code}
                                     projectLogo={logo}
