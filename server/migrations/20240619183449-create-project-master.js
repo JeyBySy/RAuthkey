@@ -26,6 +26,10 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      redirect_url: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       project_owner_user_id: {
         type: Sequelize.UUID,
         references: {
