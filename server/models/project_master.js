@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
+    redirect_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     project_owner_user_id: {
       type: DataTypes.UUID,
     },
