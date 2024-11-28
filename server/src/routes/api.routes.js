@@ -10,9 +10,9 @@ router.route('/')
     .get(ApiController.index);
 
 
-router.get('/csrf-token', (req, res) => {
-    res.send({ csrfToken: req.session.csrfmiddlewaretoken });
-})
+// router.get('/csrf-token', (req, res) => {
+//     res.send({ csrfToken: req.session.csrfmiddlewaretoken });
+// })
 
 // // User Management
 // router.route('/users')
