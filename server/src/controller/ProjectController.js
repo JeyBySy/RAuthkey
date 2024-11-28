@@ -139,7 +139,7 @@ exports.updateProject = async (req, res) => {
 }
 
 
-exports.regenerateApiKey = async (req, res) => {
+exports.regenerateAuthKey = async (req, res) => {
     const { id } = req.params
     const { project_name } = req.body
     try {
@@ -178,7 +178,7 @@ exports.regenerateApiKey = async (req, res) => {
     }
 }
 
-exports.regenerateSecretKey = async (req, res) => {
+exports.regenerateAuthSecret = async (req, res) => {
     const { id } = req.params
     const { project_name } = req.body
     try {
