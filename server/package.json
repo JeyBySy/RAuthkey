@@ -12,7 +12,10 @@
     "db:seed:gen": "npx sequelize-cli seed:generate --name",
     "db:seed": "npx sequelize-cli db:seed --seed",
     "db:seed:all": "npx sequelize-cli db:seed:all",
-    "db:seed:undo": "npx sequelize-cli db:seed:undo"
+    "db:seed:undo": "npx sequelize-cli db:seed:undo",
+
+
+    "createTable": "npx sequelize-cli model:generate --name <enter_name_here> --attributes <enter_attributes_here>"
   },
   "author": "",
   "license": "ISC",
