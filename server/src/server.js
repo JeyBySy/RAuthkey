@@ -12,9 +12,10 @@ app.use(cors(allowedOrigins))
 
 app.use(sessionMiddleware);
 
-app.use('/api/user', require('./routes/user.routes'))
 app.use('/api', require('./routes/api.routes'))
+app.use('/api/user', require('./routes/user.routes'))
 app.use('/api/project', require('./routes/project.routes'))
+app.use('/rauthkey', require('./routes/rauthkey.routes'))
 
 const connectDB = async () => {
     try {
