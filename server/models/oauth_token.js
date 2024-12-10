@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  oauthToken.init({
+  oauth_token.init({
     token_id: {
       primaryKey: true,
       type: DataTypes.UUID,
