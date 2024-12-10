@@ -1,7 +1,7 @@
 
 const Dashboard = () => {
     return (
-        <div className='lg:w-full mx-auto'>
+        <div className='lg:w-full mx-auto container'>
             <div className="flex mb-5">
                 <div className='w-full leading-8'>
                     <h1 className="title_page">Dashboard</h1>
