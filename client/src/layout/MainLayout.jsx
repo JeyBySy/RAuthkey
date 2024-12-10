@@ -1,22 +1,20 @@
 import { Outlet } from 'react-router-dom'
 import Sidemenu from '../components/Global/SideMenu/Sidemenu'
-
+import { useState } from 'react';
 
 const MainLayout = () => {
-    return (
-        <div className="grid lg:grid-cols-[250px_1fr] h-screen">
-            <div>
-                <Sidemenu />
-            </div>
-            <div className="p-5 mt-14 z-20 w-full">
-                <div className='lg:w-[90%] mx-auto'>
-                    <Outlet />
-                </div>
-            </div>
-            {/* <div className="lg:w-[86%] w-full p-10 overflow-y-auto border ml-auto">
-            </div> */}
-        </div>
-    )
-}
+    const [isCollapsed, setIsCollapsed] = useState(false);
 
-export default MainLayout
+    return (
+        <div className={`grid h-screen ${isCollapsed ? "grid-cols-[82px_1fr]" : "grid-cols-[300px_1fr]"}`}>
+            <div>
+                <Sidemenu isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+            </div>
+            <div className={`transition-all duration-300  mt-14 z-20 w-[95%] m-auto `}>
+                <Outlet />
+            </div>
+        </div>
+    );
+};
+
+export default MainLayout;
