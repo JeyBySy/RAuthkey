@@ -57,9 +57,9 @@ const LoginForm = () => {
                     <input className='input' name={"password"} id='passwordID' type="password" placeholder={"Password"} value={password} onChange={handlePasswordChange} />
                     <input className='w-full  py-2 cursor-pointer hover:bg-elephant-500 bg-elephant-400' type="submit" value="Login" />
                     <p className=' text-slate-500 text-sm'>Forget password?  <a className='underline' href="/reset-password">Click here</a></p>
-                    <hr className='divider' />
+                    {/* <hr className='divider' />
                     <p className=' text-slate-500 text-sm'>Dont have an account yet?</p>
-                    <a className='py-2 w-full  hover:bg-elephant-500 text-center bg-elephant-600' href="/register">Regsiter</a>
+                    <a className='py-2 w-full  hover:bg-elephant-500 text-center bg-elephant-600' href="/register">Regsiter</a> */}
                 </form>
             </div>
 
