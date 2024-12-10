@@ -53,3 +53,15 @@ exports.signup = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 };
+
+exports.getAllUsers = async (req, res) => {
+    try {
+        const users = await user_master_tbl.findAll({
+            attributes: ['user_id', 'user_username', 'user_email', 'user_full_name', 'is_superuser', 'project_associate'],
+        });
+        res.json({ success: true, users });
+    } catch (err) {
+        console.error("Error fetching users:", err);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
