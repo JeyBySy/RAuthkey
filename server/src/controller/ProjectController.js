@@ -30,19 +30,21 @@ exports.getProjects = async (req, res) => {
 };
 
 exports.create_project = async (req, res, next) => {
-    const { project_name } = req.body;
+    const { project_name, redirect_url, project_website } = req.body;
     try {
         const projectAssociate = formatAssociate(project_name)
-        const ApiKey = `${projectAssociate}_${generateUUID4()}`
-        const SecretKey = `${projectAssociate}_${generateUUID4()}`
+        const AuthKey = `${projectAssociate}_${generateUUID4()}`
+        const AuthSecretKey = `${projectAssociate}_${generateUUID4()}`
 
 
         const createProject = await project_master.create({
             project_name: project_name,
             project_owner_user_id: req.user.id,
             project_associate: projectAssociate,
-            project_auth_key: ApiKey,
-            project_auth_secret: SecretKey
+            project_auth_key: AuthKey,
+            project_auth_secret: AuthSecretKey,
+            project_website,
+            redirect_url
         })
 
         req.session.csrfmiddlewaretoken = regenerateCsrfToken(req, res);

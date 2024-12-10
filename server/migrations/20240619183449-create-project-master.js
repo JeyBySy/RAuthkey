@@ -30,6 +30,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      project_website: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       project_owner_user_id: {
         type: Sequelize.UUID,
         references: {

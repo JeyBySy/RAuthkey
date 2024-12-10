@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    project_website: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     project_owner_user_id: {
       type: DataTypes.UUID,
     },
