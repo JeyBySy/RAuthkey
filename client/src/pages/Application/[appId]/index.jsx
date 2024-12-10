@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import logo from '../../../assets/logo-clear.png'
 import ApplicationService from '../../../services/applicationService';
-import { Copy, Pencil, KeySquare, SquareAsterisk, Ban, CircleCheck, ArrowLeft, Eye } from "lucide-react"
+import { Copy, Pencil, KeySquare, SquareAsterisk, Ban, CircleCheck, ArrowLeft, Eye, Globe } from "lucide-react"
 
 const AppDetails = () => {
     const navigate = useNavigate()
@@ -66,11 +66,15 @@ const AppDetails = () => {
                         <div className="w-full bg-elephant-800 py-4">
                             <div className="flex item-center">
                                 <div className="w-full px-4">
-                                    <div className="flex items-center">
-                                        <img src={logo} alt="icon" className='flex items-center justify-center h-[80px] w-[80px] object-contain' />
+                                    <div className="flex items-center gap-1">
+                                        <img src={logo} alt="icon" className='flex items-center justify-center h-[80px] w-[80px] object-contain gap-2' />
                                         <div className="text-2xl">
-                                            {application?.project_name}
+                                            <p className="font-black">{application?.project_name}</p>
                                             <p className={`${mutedStyle} text-xs`}>{application?.project_associate}</p>
+                                            <div className="flex items-center gap-1 ">
+                                                <Globe width={15} height={15} />
+                                                <a className="text-sm underline" href={application?.project_website} target={application?.project_website}>{application?.project_website}</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,14 +201,14 @@ const AppDetails = () => {
                                         </button>
                                     </section>
                                 </div>
-                                {/* <div className="flex flex-col gap-2">
-                                <div className="w-full">
-                                    <p className="text-lg bg-elephant-800 p-2">Users</p>
+                                <div className="flex flex-col gap-2">
+                                    <div className="w-full">
+                                        <p className="text-lg bg-elephant-800 p-2">Redirect URL</p>
+                                    </div>
+                                    <section className="flex flex-col gap-2 text-justify mx-1">
+                                        <div className="border">{application?.redirect_url}</div>
+                                    </section>
                                 </div>
-                                <section className="flex flex-col gap-2 text-justify">
-                                    <div>Invite</div>
-                                </section>
-                            </div> */}
 
                             </div>
 

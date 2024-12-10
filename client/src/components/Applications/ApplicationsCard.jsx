@@ -1,11 +1,11 @@
-import { Copy, User } from "lucide-react"
+import { Copy, User, Calendar } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
-const ApplicationsCard = ({ projectCode, projectLogo, projectName, projectAuthKey, projectAuthSecret }) => {
+const ApplicationsCard = ({ projectCode, projectLogo, projectName, projectAuthKey, projectAuthSecret, projectCreated }) => {
     return (
         <NavLink to={projectCode}>
-            <div className=' p-4 flex flex-col mx-auto w-full lg:w-full lg:max-w-[800px] relative'>
+            <div className='shadow-md p-4 flex flex-col mx-auto w-full lg:w-full relative '>
                 <div className="absolute bg-[#22aa22] right-0 top-2 rounded-l-full">
                     <p className="text-xs text-white font-black px-2 w-[90px] text-center  py-1 capitalize">
                         Active
@@ -18,7 +18,7 @@ const ApplicationsCard = ({ projectCode, projectLogo, projectName, projectAuthKe
                 </div> */}
 
                 <div className="flex items-center flex-row max-w-[600px] ">
-                    <div className="w-fit">
+                    <div className="w-fit ">
                         <img src={projectLogo} alt="icon" className='flex items-center justify-center h-[50px] w-[60px] object-contain' />
                     </div>
                     <div className="flex max-w-[80%] items-center">
@@ -49,10 +49,14 @@ const ApplicationsCard = ({ projectCode, projectLogo, projectName, projectAuthKe
                         </button>
                     </div>
                 </div>
-                <div className="flex items-center mt-2 justify-start w-fit">
-                    <User width={20} height={20} /><span className="font-black"> 100</span>
+                <div className="flex items-center mt-2 justify-start w-fit gap-2 flex-col">
+                    <div className="flex w-full text-xs justify-start items-center gap-2">
+                        <Calendar width={15} height={15} /><span className="text-gray-300">Date: {projectCreated}</span>
+                    </div>
+                    <div className="flex w-full text-xs justify-start items-center gap-2">
+                        <User width={15} height={15} /><span className=" text-gray-300">Users: 100</span>
+                    </div>
                 </div>
-
 
             </div>
         </NavLink>

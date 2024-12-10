@@ -26,6 +26,9 @@ const Application = () => {
     const [applicationName, setApplicationName] = useState();
     const [applicationNameError, setApplicationNameError] = useState(null)
 
+    const [redirectUrl, setRedirectUrl] = useState();
+    const [applicationWebsite, setApplicationWebsite] = useState();
+
 
     useEffect(() => {
         fetchApplications();
@@ -54,14 +57,18 @@ const Application = () => {
     const handleSubmitApplication = async (e) => {
         e.preventDefault()
         try {
-            const applicationData = { project_name: applicationName };
-            const response = await ApplicationService.createApplication(applicationData);
+            const project_data = { project_name: applicationName, redirect_url: redirectUrl, project_website: applicationWebsite };
+            const response = await ApplicationService.createApplication(project_data);
             // console.log('Application created:', response);
+            console.log(project_data);
+
 
             // Updating CSRF token after success action
             if (response.csrfToken) updateCsrfToken(response.csrfToken);
 
             setApplicationName('');
+            setRedirectUrl('')
+            setApplicationWebsite('')
             closeModal();
             addToast('Successfully created ', 'success');
             navigate(`/application/${response?.project_code}`)
@@ -73,6 +80,12 @@ const Application = () => {
     const handleChangeName = (e) => {
         setApplicationName(e.target.value)
     }
+    const handleRedirectUrl = (e) => {
+        setRedirectUrl(e.target.value)
+    }
+    const handleWebsite = (e) => {
+        setApplicationWebsite(e.target.value)
+    }
 
 
     return (
@@ -83,6 +96,10 @@ const Application = () => {
                         <div>
                             <label htmlFor="appName" className="block mb-2 text-sm font-semibold">Application Name</label>
                             <input required onChange={handleChangeName} id="appName" type="text" className={`border border-gray-300 p-10 rounded w-full bg-elephant-600  ${applicationNameError != null ? ' border-red-600 ' : 'border-elephant-900'} input`} value={applicationName} name='project_name' placeholder='My Application' />
+                            <label htmlFor="redirectURL" className="block mb-2 text-sm font-semibold">Redirect URL</label>
+                            <input required onChange={handleRedirectUrl} id="redirectURL" type="text" className={`border border-gray-300 p-10 rounded w-full bg-elephant-600  ${applicationNameError != null ? ' border-red-600 ' : 'border-elephant-900'} input`} value={redirectUrl} name='redirect_url' placeholder='http://example.com/cb' />
+                            <label htmlFor="appWebsite" className="block mb-2 text-sm font-semibold">Website</label>
+                            <input required onChange={handleWebsite} id="appWebsite" type="text" className={`border border-gray-300 p-10 rounded w-full bg-elephant-600  ${applicationNameError != null ? ' border-red-600 ' : 'border-elephant-900'} input`} value={applicationWebsite} name='project_website' placeholder='http://example.com' />
                         </div>
                         <div className='text-sm text-red-300'>
                             {applicationNameError}
@@ -114,15 +131,16 @@ const Application = () => {
                         {error}
                     </div>
                 ) : (
-                    <div className="flex flex-row gap-2 flex-wrap justify-start overflow-auto ">
+                    <div className="flex flex-row gap-2 flex-wrap justify-start overflow-auto">
                         {applications?.map((project) => (
-                            <div key={project.project_code} className="justify-start rounded border border-elephant-800 hover:shadow-elephant-100 w-full lg:max-w-[360px] bg-gradient-to-tl from-elephant-700 hover:bg-gradient-to-br hover:from-elephant-600 ">
+                            <div key={project.project_code} className="justify-start border border-elephant-800 w-full 2xl:max-w-[350px]  bg-elephant-800 rounded ">
                                 <ApplicationsCard
                                     projectCode={project.project_code}
                                     projectLogo={logo}
                                     projectName={project.project_name}
                                     projectAuthKey={project.project_auth_key}
-                                    projectAuthSecret={project.project_auth_secret} />
+                                    projectAuthSecret={project.project_auth_secret}
+                                    projectCreated={project.createdAt} />
                             </div>
                         ))}
                     </div>
