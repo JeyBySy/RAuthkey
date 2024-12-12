@@ -18,7 +18,7 @@ function App() {
         <Route path="/application/:appId" element={<AppDetails />}></Route>
 
         <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/settings" element={<Settings />}></Route>
+        <Route path="/settings/*" element={<Settings />}></Route>
       </Route>
 
       <Route element={<AuthLayout />}>
